@@ -16,3 +16,4 @@ d:\Document\Kampus\Pemrograman Jaringan\Program TCP\Console\TCPClientConsole\obj
 d:\Document\Kampus\Pemrograman Jaringan\Program TCP\Console\TCPClientConsole\obj\Debug\net10.0\TCPClientConsole.pdb
 d:\Document\Kampus\Pemrograman Jaringan\Program TCP\Console\TCPClientConsole\obj\Debug\net10.0\TCPClientConsole.genruntimeconfig.cache
 d:\Document\Kampus\Pemrograman Jaringan\Program TCP\Console\TCPClientConsole\obj\Debug\net10.0\ref\TCPClientConsole.dll
+d:\Document\Kampus\Pemrograman Jaringan\Program TCP\Console\TCPClientConsole\obj\Debug\net10.0\TCPClientConsole.sourcelink.json

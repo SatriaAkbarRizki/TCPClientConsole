@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Document\\Kampus\\Pemrograman Jaringan\\Program TCP\\Console\\TCPClientConsole\\TCPClientConsole.csproj": {}
+    "d:\\Document\\Kampus\\Pemrograman Jaringan\\Program TCP\\Console\\TCPClientConsole\\TCPClientConsole.csproj": {}
   },
   "projects": {
-    "D:\\Document\\Kampus\\Pemrograman Jaringan\\Program TCP\\Console\\TCPClientConsole\\TCPClientConsole.csproj": {
+    "d:\\Document\\Kampus\\Pemrograman Jaringan\\Program TCP\\Console\\TCPClientConsole\\TCPClientConsole.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Document\\Kampus\\Pemrograman Jaringan\\Program TCP\\Console\\TCPClientConsole\\TCPClientConsole.csproj",
+        "projectUniqueName": "d:\\Document\\Kampus\\Pemrograman Jaringan\\Program TCP\\Console\\TCPClientConsole\\TCPClientConsole.csproj",
         "projectName": "TCPClientConsole",
-        "projectPath": "D:\\Document\\Kampus\\Pemrograman Jaringan\\Program TCP\\Console\\TCPClientConsole\\TCPClientConsole.csproj",
+        "projectPath": "d:\\Document\\Kampus\\Pemrograman Jaringan\\Program TCP\\Console\\TCPClientConsole\\TCPClientConsole.csproj",
         "packagesPath": "C:\\Users\\XEOZN\\.nuget\\packages\\",
-        "outputPath": "D:\\Document\\Kampus\\Pemrograman Jaringan\\Program TCP\\Console\\TCPClientConsole\\obj\\",
+        "outputPath": "d:\\Document\\Kampus\\Pemrograman Jaringan\\Program TCP\\Console\\TCPClientConsole\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\XEOZN\\AppData\\Roaming\\NuGet\\NuGet.Config"

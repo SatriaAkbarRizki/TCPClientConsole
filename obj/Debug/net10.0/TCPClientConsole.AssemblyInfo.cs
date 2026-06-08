@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("TCPClientConsole")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+bf236e23bdf7bbb944886e22caadba7474f7f2c8")]
 [assembly: System.Reflection.AssemblyProductAttribute("TCPClientConsole")]
 [assembly: System.Reflection.AssemblyTitleAttribute("TCPClientConsole")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

@@ -7,25 +7,23 @@ using System.Threading;
 
 public class TCPClients
 {   
-    private  String _nameClient;
+    private String _nameClient;
+    
     public void start()
     {
         const String server = "127.0.0.1";
         const int port = 8888;
 
         using var client = new TcpClient(server, port);
-        var stream  = client.GetStream();
+        var stream = client.GetStream();
 
-        
         Console.WriteLine("Connected to server. Type messages to send:");
 
-        
         var data = new User();
 
         while (true)
         {
             Console.Write("Email:");
-            
             data.Email = Console.ReadLine() ?? "";
 
             if (data.Email == "exit" || data.Email == "ex") return;
@@ -33,7 +31,8 @@ public class TCPClients
             Console.Write("Pass:");
             data.Password = Console.ReadLine() ?? "";
             
-            if (data.Email != "" && data.Password != ""){
+            if (data.Email != "" && data.Password != "")
+            {
                 var json = JsonSerializer.Serialize(data);
                 var buffer = Encoding.UTF8.GetBytes(json);
                 stream.Write(buffer, 0, buffer.Length);
@@ -44,21 +43,44 @@ public class TCPClients
                 Console.WriteLine($"Server Response: {response}");
 
                 var serverRes = JsonSerializer.Deserialize<ServerResponse>(response);
-                _nameClient = serverRes.Data["name"];
-
+                
                 if (serverRes != null && serverRes.Status == "200")
                 {
+                    _nameClient = serverRes.Data["name"];
                     Console.WriteLine($"\nSelamat Datang, {serverRes.Message}! Anda berhasil masuk ke ruang chat.");
+                    
+                    var historyBuffer = new byte[4096]; 
+                    var historyBytesRead = stream.Read(historyBuffer, 0, historyBuffer.Length);
+                    string historyJson = Encoding.UTF8.GetString(historyBuffer, 0, historyBytesRead);
+
+                    try
+                    {
+                        var riwayatChat = JsonSerializer.Deserialize<List<MessageModel>>(historyJson);
+                        if (riwayatChat != null && riwayatChat.Count > 0)
+                        {
+                            Console.WriteLine("\n--- RIWAYAT CHAT MASA LALU ---");
+                            foreach (var chat in riwayatChat)
+                            {
+                                Console.WriteLine($"[{chat.SenderName}]: {chat.MessageText}");
+                            }
+                            Console.WriteLine("-------------------------------\n");
+                        }
+                    }
+                    catch (JsonException)
+                    {
+                        Console.WriteLine("[SISTEM] Gagal memuat riwayat chat.");
+                    }
+
                     Console.WriteLine("Ketik pesan Anda di bawah ini (ketik 'exit' untuk keluar):");
                     Console.WriteLine("=========================================================");
                     break;
                 }
             }    
-            else{
-                    Console.WriteLine("Ensure not have empty");
+            else
+            {
+                Console.WriteLine("Ensure not have empty");
             }
         }
-
 
         Thread listenThread = new Thread(() => readMessageFromServer(stream));
         listenThread.Start();
@@ -76,7 +98,7 @@ public class TCPClients
 
             if (!string.IsNullOrEmpty(pesanChat))
             {
-                pesanChat = $"{_nameClient}: {pesanChat}";
+                pesanChat = $"[{_nameClient}]: {pesanChat}";
                 var chatBuffer = Encoding.UTF8.GetBytes(pesanChat);
                 stream.Write(chatBuffer, 0, chatBuffer.Length);
             }
@@ -84,25 +106,23 @@ public class TCPClients
     }
 
     private void readMessageFromServer(NetworkStream stream)
+    {
+        var buffer = new byte[1024];
+        int bytesRead;
+
+        try
         {
-            var buffer = new byte[1024];
-            int bytesRead;
-
-            try
+            while ((bytesRead = stream.Read(buffer, 0, buffer.Length)) != 0)
             {
-
-                while ((bytesRead = stream.Read(buffer, 0, buffer.Length)) != 0)
-                {
-                    string pesanMasuk = Encoding.UTF8.GetString(buffer, 0, bytesRead);
-    
-                    Console.WriteLine(pesanMasuk);
-                }
-            }
-            catch
-            {
-    
-                Console.WriteLine("\n[SISTEM] Koneksi ke server terputus.");
+                string pesanMasuk = Encoding.UTF8.GetString(buffer, 0, bytesRead);
+                
+                // Langsung cetak setiap ada pesan masuk dari hasil broadcast server
+                Console.WriteLine(pesanMasuk);
             }
         }
-
+        catch
+        {
+            Console.WriteLine("\n[SISTEM] Koneksi ke server terputus.");
+        }
+    }
 }
