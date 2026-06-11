@@ -68,6 +68,24 @@ public partial class MainForm
     private DP btnLogin = null!;
     private Label lblLoginBtn = null!;
     private Label lblStatus = null!;
+    
+    // Sliding login/config wrappers
+    private DP panelLoginFields = null!;
+    private DP panelConfigFields = null!;
+
+    // Config controls
+    private TextBox txtServerIp = null!;
+    private TextBox txtServerPort = null!;
+    private DP ipWrap = null!, portWrap = null!;
+    private DP btnSaveConfig = null!;
+    private Label lblSaveConfigBtn = null!;
+    private Label lblGoConfig = null!;
+    private Label lblBackLogin = null!;
+
+    // Animation timer for config slide
+    private System.Windows.Forms.Timer configAnimTimer = null!;
+    private float configAnimProgress;
+    private bool configShowTarget;
 
     // Chat
     private Panel chatScrollPanel = null!;
@@ -109,6 +127,9 @@ public partial class MainForm
 
         animTimer = new System.Windows.Forms.Timer { Interval = 16 };
         animTimer.Tick += AnimTick;
+
+        configAnimTimer = new System.Windows.Forms.Timer { Interval = 16 };
+        configAnimTimer.Tick += ConfigAnimTick;
     }
 
     // ══════════════════════════════════════════════════
@@ -234,17 +255,33 @@ public partial class MainForm
             BackColor = Color.Transparent
         };
 
+        // ── cardInner (Container Slide) ──
+        var cardInner = new DP
+        {
+            Location = new Point(0, 100),
+            Size = new Size(cw, 250),
+            BackColor = Color.Transparent
+        };
+
+        // ── SLIDE 1: LOGIN FIELDS ──
+        panelLoginFields = new DP
+        {
+            Location = new Point(0, 0),
+            Size = new Size(cw, 250),
+            BackColor = Color.Transparent
+        };
+
         // Email
         var lblEmail = new Label
         {
             Text = "Email",
             Font = new Font("Segoe UI Semibold", 9f),
             ForeColor = TxtPri,
-            Location = new Point(30, 115),
+            Location = new Point(30, 5),
             AutoSize = true,
             BackColor = Color.Transparent
         };
-        emailWrap = CreateInputWrap(30, 138, cw - 60, out txtEmail, false);
+        emailWrap = CreateInputWrap(30, 28, cw - 60, out txtEmail, false);
 
         // Password
         var lblPass = new Label
@@ -252,16 +289,16 @@ public partial class MainForm
             Text = "Password",
             Font = new Font("Segoe UI Semibold", 9f),
             ForeColor = TxtPri,
-            Location = new Point(30, 198),
+            Location = new Point(30, 85),
             AutoSize = true,
             BackColor = Color.Transparent
         };
-        passWrap = CreateInputWrap(30, 221, cw - 60, out txtPassword, true);
+        passWrap = CreateInputWrap(30, 108, cw - 60, out txtPassword, true);
 
         // Tombol login
         btnLogin = new DP
         {
-            Location = new Point(30, 290),
+            Location = new Point(30, 170),
             Size = new Size(cw - 60, 46),
             Cursor = Cursors.Hand,
             BackColor = Color.Transparent
@@ -287,26 +324,133 @@ public partial class MainForm
         btnLogin.Click += BtnLogin_Click;
         lblLoginBtn.Click += BtnLogin_Click;
 
-        // Enter pada password → login
         txtPassword.KeyDown += (s, e) =>
         {
             if (e.KeyCode == Keys.Enter) { e.SuppressKeyPress = true; BtnLogin_Click(s, e); }
         };
 
-        // Status / error
+        // Link Pengaturan Koneksi
+        lblGoConfig = new Label
+        {
+            Text = "Pengaturan Koneksi",
+            Font = new Font("Segoe UI Semibold", 9.5f),
+            ForeColor = TxtSec,
+            TextAlign = ContentAlignment.MiddleCenter,
+            Location = new Point(30, 225),
+            Size = new Size(cw - 60, 25),
+            Cursor = Cursors.Hand,
+            BackColor = Color.Transparent
+        };
+        lblGoConfig.MouseEnter += (s, e) => { lblGoConfig.ForeColor = Accent; lblGoConfig.Font = new Font(lblGoConfig.Font, FontStyle.Underline); };
+        lblGoConfig.MouseLeave += (s, e) => { lblGoConfig.ForeColor = TxtSec; lblGoConfig.Font = new Font(lblGoConfig.Font, FontStyle.Regular); };
+        lblGoConfig.Click += BtnGoConfig_Click;
+
+        panelLoginFields.Controls.AddRange(new Control[] {
+            lblEmail, emailWrap, lblPass, passWrap, btnLogin, lblGoConfig
+        });
+
+
+        // ── SLIDE 2: CONFIG FIELDS ──
+        panelConfigFields = new DP
+        {
+            Location = new Point(cw, 0), // mulai di luar area (kanan)
+            Size = new Size(cw, 250),
+            BackColor = Color.Transparent
+        };
+
+        // IP Server
+        var lblIp = new Label
+        {
+            Text = "IP Server",
+            Font = new Font("Segoe UI Semibold", 9f),
+            ForeColor = TxtPri,
+            Location = new Point(30, 5),
+            AutoSize = true,
+            BackColor = Color.Transparent
+        };
+        ipWrap = CreateInputWrap(30, 28, cw - 60, out txtServerIp, false);
+        txtServerIp.Text = "127.0.0.1"; // Default IP
+
+        // Port Server
+        var lblPort = new Label
+        {
+            Text = "Port Server",
+            Font = new Font("Segoe UI Semibold", 9f),
+            ForeColor = TxtPri,
+            Location = new Point(30, 85),
+            AutoSize = true,
+            BackColor = Color.Transparent
+        };
+        portWrap = CreateInputWrap(30, 108, cw - 60, out txtServerPort, false);
+        txtServerPort.Text = "8888"; // Default Port
+
+        // Tombol Simpan
+        btnSaveConfig = new DP
+        {
+            Location = new Point(30, 170),
+            Size = new Size(cw - 60, 46),
+            Cursor = Cursors.Hand,
+            BackColor = Color.Transparent
+        };
+        lblSaveConfigBtn = new Label
+        {
+            Text = "Simpan",
+            ForeColor = TxtOnAcc,
+            Font = new Font("Segoe UI Semibold", 11f),
+            TextAlign = ContentAlignment.MiddleCenter,
+            Dock = DockStyle.Fill,
+            Cursor = Cursors.Hand,
+            BackColor = Color.Transparent
+        };
+
+        bool saveHover = false;
+        btnSaveConfig.Paint += (s, e) => PaintButton(e.Graphics, btnSaveConfig.Size, saveHover, true);
+        btnSaveConfig.MouseEnter += (s, e) => { saveHover = true; btnSaveConfig.Invalidate(); };
+        btnSaveConfig.MouseLeave += (s, e) => { saveHover = false; btnSaveConfig.Invalidate(); };
+        lblSaveConfigBtn.MouseEnter += (s, e) => { saveHover = true; btnSaveConfig.Invalidate(); };
+        lblSaveConfigBtn.MouseLeave += (s, e) => { saveHover = false; btnSaveConfig.Invalidate(); };
+        btnSaveConfig.Controls.Add(lblSaveConfigBtn);
+        btnSaveConfig.Click += BtnSaveConfig_Click;
+        lblSaveConfigBtn.Click += BtnSaveConfig_Click;
+
+        // Link Kembali
+        lblBackLogin = new Label
+        {
+            Text = "Kembali ke Login",
+            Font = new Font("Segoe UI Semibold", 9.5f),
+            ForeColor = TxtSec,
+            TextAlign = ContentAlignment.MiddleCenter,
+            Location = new Point(30, 225),
+            Size = new Size(cw - 60, 25),
+            Cursor = Cursors.Hand,
+            BackColor = Color.Transparent
+        };
+        lblBackLogin.MouseEnter += (s, e) => { lblBackLogin.ForeColor = Accent; lblBackLogin.Font = new Font(lblBackLogin.Font, FontStyle.Underline); };
+        lblBackLogin.MouseLeave += (s, e) => { lblBackLogin.ForeColor = TxtSec; lblBackLogin.Font = new Font(lblBackLogin.Font, FontStyle.Regular); };
+        lblBackLogin.Click += BtnBackLogin_Click;
+
+        panelConfigFields.Controls.AddRange(new Control[] {
+            lblIp, ipWrap, lblPort, portWrap, btnSaveConfig, lblBackLogin
+        });
+
+
+        // Add slides to inner card
+        cardInner.Controls.AddRange(new Control[] { panelLoginFields, panelConfigFields });
+
+        // Status / error (di luar slide, tetap di bawah card)
         lblStatus = new Label
         {
             Text = "",
             Font = new Font("Segoe UI", 9f),
             ForeColor = TxtErr,
-            Location = new Point(30, 348),
+            Location = new Point(30, 350),
             Size = new Size(cw - 60, 40),
             TextAlign = ContentAlignment.TopCenter,
             BackColor = Color.Transparent
         };
 
         card.Controls.AddRange(new Control[] {
-            lblTitle, lblSub, lblEmail, emailWrap, lblPass, passWrap, btnLogin, lblStatus
+            lblTitle, lblSub, cardInner, lblStatus
         });
 
         panelLogin.Controls.Add(card);

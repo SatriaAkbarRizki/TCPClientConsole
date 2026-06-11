@@ -10,8 +10,8 @@ public class TcpClientService
     private TcpClient? _client;
     private NetworkStream? _stream;
 
-    private readonly String serverTCP = "127.0.0.1";
-    private readonly int portTCP = 8888;
+    private  String serverTCP = "127.0.0.1";
+    private  int portTCP = 8888;
 
     public string NameClient { get; private set; } = "";
 
@@ -62,6 +62,12 @@ public class TcpClientService
         {
             return (false, "", "", $"Koneksi gagal: {ex.Message}");
         }
+    }
+
+    public void changeConfigServer (String? server, int? port)
+    {
+        serverTCP = server ?? serverTCP;
+        portTCP = port ?? portTCP;
     }
 
     public List<MessageModel> ParseHistory(string historyJson)
