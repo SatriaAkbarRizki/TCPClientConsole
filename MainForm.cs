@@ -237,7 +237,7 @@ public partial class MainForm : Form
         }
 
         float t = EaseOutCubic(configAnimProgress);
-        int cw = 380; // Card width
+        int cw = FW; // Full form width
 
         if (configShowTarget) // Ke Config
         {

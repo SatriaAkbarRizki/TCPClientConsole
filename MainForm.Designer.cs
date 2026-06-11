@@ -220,46 +220,36 @@ public partial class MainForm
         };
         panelLogin.Paint += PaintLoginBg;
 
-        // ── Card ──
-        int cw = 380, ch = 400;
-        int cx = (FW - cw) / 2, cy = (contentH - ch) / 2;
-
-        var card = new DP
-        {
-            Location = new Point(cx, cy),
-            Size = new Size(cw, ch),
-            BackColor = BgCard
-        };
-        card.Paint += PaintCard;
+        int width = FW; // 520
 
         // Judul
         var lblTitle = new Label
         {
             Text = "💬 TCP Chat",
-            Font = new Font("Segoe UI", 20, FontStyle.Bold),
+            Font = new Font("Segoe UI", 24, FontStyle.Bold),
             ForeColor = TxtPri,
             TextAlign = ContentAlignment.MiddleCenter,
-            Location = new Point(0, 28),
-            Size = new Size(cw, 40),
+            Location = new Point(0, 60),
+            Size = new Size(width, 45),
             BackColor = Color.Transparent
         };
 
         var lblSub = new Label
         {
             Text = "Masuk ke ruang chat Anda",
-            Font = new Font("Segoe UI", 9.5f),
+            Font = new Font("Segoe UI", 10f),
             ForeColor = TxtSec,
             TextAlign = ContentAlignment.MiddleCenter,
-            Location = new Point(0, 70),
-            Size = new Size(cw, 22),
+            Location = new Point(0, 110),
+            Size = new Size(width, 22),
             BackColor = Color.Transparent
         };
 
         // ── cardInner (Container Slide) ──
         var cardInner = new DP
         {
-            Location = new Point(0, 100),
-            Size = new Size(cw, 250),
+            Location = new Point(0, 150),
+            Size = new Size(width, 280),
             BackColor = Color.Transparent
         };
 
@@ -267,39 +257,42 @@ public partial class MainForm
         panelLoginFields = new DP
         {
             Location = new Point(0, 0),
-            Size = new Size(cw, 250),
+            Size = new Size(width, 280),
             BackColor = Color.Transparent
         };
+
+        int inputW = 380;
+        int inputX = (width - inputW) / 2; // (520 - 380) / 2 = 70
 
         // Email
         var lblEmail = new Label
         {
             Text = "Email",
-            Font = new Font("Segoe UI Semibold", 9f),
+            Font = new Font("Segoe UI Semibold", 9.5f),
             ForeColor = TxtPri,
-            Location = new Point(30, 5),
+            Location = new Point(inputX, 10),
             AutoSize = true,
             BackColor = Color.Transparent
         };
-        emailWrap = CreateInputWrap(30, 28, cw - 60, out txtEmail, false);
+        emailWrap = CreateInputWrap(inputX, 33, inputW, out txtEmail, false);
 
         // Password
         var lblPass = new Label
         {
             Text = "Password",
-            Font = new Font("Segoe UI Semibold", 9f),
+            Font = new Font("Segoe UI Semibold", 9.5f),
             ForeColor = TxtPri,
-            Location = new Point(30, 85),
+            Location = new Point(inputX, 95),
             AutoSize = true,
             BackColor = Color.Transparent
         };
-        passWrap = CreateInputWrap(30, 108, cw - 60, out txtPassword, true);
+        passWrap = CreateInputWrap(inputX, 118, inputW, out txtPassword, true);
 
         // Tombol login
         btnLogin = new DP
         {
-            Location = new Point(30, 170),
-            Size = new Size(cw - 60, 46),
+            Location = new Point(inputX, 185),
+            Size = new Size(inputW, 46),
             Cursor = Cursors.Hand,
             BackColor = Color.Transparent
         };
@@ -307,7 +300,7 @@ public partial class MainForm
         {
             Text = "Masuk",
             ForeColor = TxtOnAcc,
-            Font = new Font("Segoe UI Semibold", 11f),
+            Font = new Font("Segoe UI Semibold", 11.5f),
             TextAlign = ContentAlignment.MiddleCenter,
             Dock = DockStyle.Fill,
             Cursor = Cursors.Hand,
@@ -333,11 +326,11 @@ public partial class MainForm
         lblGoConfig = new Label
         {
             Text = "Pengaturan Koneksi",
-            Font = new Font("Segoe UI Semibold", 9.5f),
+            Font = new Font("Segoe UI Semibold", 10f),
             ForeColor = TxtSec,
             TextAlign = ContentAlignment.MiddleCenter,
-            Location = new Point(30, 225),
-            Size = new Size(cw - 60, 25),
+            Location = new Point(inputX, 245),
+            Size = new Size(inputW, 25),
             Cursor = Cursors.Hand,
             BackColor = Color.Transparent
         };
@@ -353,8 +346,8 @@ public partial class MainForm
         // ── SLIDE 2: CONFIG FIELDS ──
         panelConfigFields = new DP
         {
-            Location = new Point(cw, 0), // mulai di luar area (kanan)
-            Size = new Size(cw, 250),
+            Location = new Point(width, 0), // mulai di luar area (kanan)
+            Size = new Size(width, 280),
             BackColor = Color.Transparent
         };
 
@@ -362,33 +355,33 @@ public partial class MainForm
         var lblIp = new Label
         {
             Text = "IP Server",
-            Font = new Font("Segoe UI Semibold", 9f),
+            Font = new Font("Segoe UI Semibold", 9.5f),
             ForeColor = TxtPri,
-            Location = new Point(30, 5),
+            Location = new Point(inputX, 10),
             AutoSize = true,
             BackColor = Color.Transparent
         };
-        ipWrap = CreateInputWrap(30, 28, cw - 60, out txtServerIp, false);
+        ipWrap = CreateInputWrap(inputX, 33, inputW, out txtServerIp, false);
         txtServerIp.Text = "127.0.0.1"; // Default IP
 
         // Port Server
         var lblPort = new Label
         {
             Text = "Port Server",
-            Font = new Font("Segoe UI Semibold", 9f),
+            Font = new Font("Segoe UI Semibold", 9.5f),
             ForeColor = TxtPri,
-            Location = new Point(30, 85),
+            Location = new Point(inputX, 95),
             AutoSize = true,
             BackColor = Color.Transparent
         };
-        portWrap = CreateInputWrap(30, 108, cw - 60, out txtServerPort, false);
+        portWrap = CreateInputWrap(inputX, 118, inputW, out txtServerPort, false);
         txtServerPort.Text = "8888"; // Default Port
 
         // Tombol Simpan
         btnSaveConfig = new DP
         {
-            Location = new Point(30, 170),
-            Size = new Size(cw - 60, 46),
+            Location = new Point(inputX, 185),
+            Size = new Size(inputW, 46),
             Cursor = Cursors.Hand,
             BackColor = Color.Transparent
         };
@@ -396,7 +389,7 @@ public partial class MainForm
         {
             Text = "Simpan",
             ForeColor = TxtOnAcc,
-            Font = new Font("Segoe UI Semibold", 11f),
+            Font = new Font("Segoe UI Semibold", 11.5f),
             TextAlign = ContentAlignment.MiddleCenter,
             Dock = DockStyle.Fill,
             Cursor = Cursors.Hand,
@@ -417,11 +410,11 @@ public partial class MainForm
         lblBackLogin = new Label
         {
             Text = "Kembali ke Login",
-            Font = new Font("Segoe UI Semibold", 9.5f),
+            Font = new Font("Segoe UI Semibold", 10f),
             ForeColor = TxtSec,
             TextAlign = ContentAlignment.MiddleCenter,
-            Location = new Point(30, 225),
-            Size = new Size(cw - 60, 25),
+            Location = new Point(inputX, 245),
+            Size = new Size(inputW, 25),
             Cursor = Cursors.Hand,
             BackColor = Color.Transparent
         };
@@ -441,19 +434,18 @@ public partial class MainForm
         lblStatus = new Label
         {
             Text = "",
-            Font = new Font("Segoe UI", 9f),
+            Font = new Font("Segoe UI", 9.5f),
             ForeColor = TxtErr,
-            Location = new Point(30, 350),
-            Size = new Size(cw - 60, 40),
+            Location = new Point(inputX, 440),
+            Size = new Size(inputW, 40),
             TextAlign = ContentAlignment.TopCenter,
             BackColor = Color.Transparent
         };
 
-        card.Controls.AddRange(new Control[] {
+        panelLogin.Controls.AddRange(new Control[] {
             lblTitle, lblSub, cardInner, lblStatus
         });
 
-        panelLogin.Controls.Add(card);
         Controls.Add(panelLogin);
     }
 
@@ -742,11 +734,46 @@ public partial class MainForm
     //  Chat Bubble — Membuat satu baris pesan chat
     // ══════════════════════════════════════════════════
 
+    private static Color GetAvatarColor(char c)
+    {
+        Color[] colors = new Color[]
+        {
+            Color.FromArgb(99, 102, 241),  // Indigo
+            Color.FromArgb(139, 92, 246),  // Violet
+            Color.FromArgb(59, 130, 246),  // Blue
+            Color.FromArgb(16, 185, 129),  // Emerald
+            Color.FromArgb(245, 158, 11),  // Amber
+            Color.FromArgb(239, 68, 68),   // Red
+            Color.FromArgb(236, 72, 153),  // Pink
+            Color.FromArgb(20, 184, 166)   // Teal
+        };
+        int index = Math.Abs(c) % colors.Length;
+        return colors[index];
+    }
+
     internal void CreateBubbleRow(string text, bool isSelf, bool isSystem)
     {
-        int maxBubbleW = (int)((FW - 40) * 0.72);
+        string senderName = "";
+        string messageText = text;
 
-        var textSize = TextRenderer.MeasureText(text, ChatFont,
+        if (!isSystem && text.StartsWith("[") && text.Contains("]: "))
+        {
+            int idx = text.IndexOf("]: ");
+            senderName = text.Substring(1, idx - 1);
+            messageText = text.Substring(idx + 3);
+        }
+
+        int maxBubbleW;
+        if (!isSelf && !isSystem && !string.IsNullOrEmpty(senderName))
+        {
+            maxBubbleW = (int)((FW - 98) * 0.72);
+        }
+        else
+        {
+            maxBubbleW = (int)((FW - 40) * 0.72);
+        }
+
+        var textSize = TextRenderer.MeasureText(messageText, ChatFont,
             new Size(maxBubbleW - 28, int.MaxValue),
             TextFormatFlags.WordBreak | TextFormatFlags.TextBoxControl);
 
@@ -758,22 +785,81 @@ public partial class MainForm
         var row = new Panel
         {
             Width = rowW,
-            Height = bubbleH + 8,
             BackColor = Color.Transparent,
             Margin = new Padding(0, 3, 0, 3)
         };
 
         int bubbleX;
-        if (isSystem) bubbleX = (rowW - bubbleW) / 2;
-        else if (isSelf) bubbleX = rowW - bubbleW - 12;
-        else bubbleX = 12;
+        int bubbleY;
+
+        if (isSystem)
+        {
+            bubbleX = (rowW - bubbleW) / 2;
+            bubbleY = 4;
+            row.Height = bubbleH + 8;
+        }
+        else if (isSelf)
+        {
+            bubbleX = rowW - bubbleW - 12;
+            bubbleY = 4;
+            row.Height = bubbleH + 8;
+        }
+        else // Other client
+        {
+            bubbleX = 58;
+            bubbleY = 22;
+            row.Height = Math.Max(bubbleH + 22 + 8, 48);
+
+            // Add avatar
+            string firstLetter = senderName.Length > 0 ? senderName.Substring(0, 1).ToUpper() : "?";
+            Color avatarBg = GetAvatarColor(firstLetter[0]);
+
+            var avatar = new DP
+            {
+                Size = new Size(36, 36),
+                Location = new Point(12, 4),
+                BackColor = Color.Transparent
+            };
+            avatar.Paint += (s, e) =>
+            {
+                var g = e.Graphics;
+                g.SmoothingMode = SmoothingMode.AntiAlias;
+                g.TextRenderingHint = TextRenderingHint.ClearTypeGridFit;
+                
+                using (var brush = new SolidBrush(avatarBg))
+                {
+                    g.FillEllipse(brush, 0, 0, 35, 35);
+                }
+                
+                using (var font = new Font("Segoe UI", 10f, FontStyle.Bold))
+                {
+                    var size = g.MeasureString(firstLetter, font);
+                    float lx = (36 - size.Width) / 2f;
+                    float ly = (36 - size.Height) / 2f;
+                    g.DrawString(firstLetter, font, Brushes.White, lx, ly);
+                }
+            };
+            row.Controls.Add(avatar);
+
+            // Add name label
+            var lblName = new Label
+            {
+                Text = senderName,
+                Font = new Font("Segoe UI Semibold", 8.5f),
+                ForeColor = TxtSec,
+                Location = new Point(58, 4),
+                AutoSize = true,
+                BackColor = Color.Transparent
+            };
+            row.Controls.Add(lblName);
+        }
 
         var bgColor = isSystem ? Color.FromArgb(235, 237, 242) : (isSelf ? BubSelf : BubOther);
         var txtColor = isSystem ? TxtSec : (isSelf ? TxtOnAcc : TxtPri);
 
         var bubble = new DP
         {
-            Location = new Point(bubbleX, 4),
+            Location = new Point(bubbleX, bubbleY),
             Size = new Size(bubbleW, bubbleH),
             BackColor = Color.Transparent
         };
@@ -800,7 +886,7 @@ public partial class MainForm
                 g.FillPath(brush, path);
 
             // Text
-            TextRenderer.DrawText(g, text, ChatFont,
+            TextRenderer.DrawText(g, messageText, ChatFont,
                 new Rectangle(14, 9, bubbleW - 28, bubbleH),
                 txtColor,
                 TextFormatFlags.WordBreak | TextFormatFlags.TextBoxControl);
