@@ -10,7 +10,7 @@ public class TcpClientService
     private TcpClient? _client;
     private NetworkStream? _stream;
 
-    private  String serverTCP = "127.0.0.1";
+    private  String serverTCP = "172.19.121.29";
     private  int portTCP = 8888;
 
     public string NameClient { get; private set; } = "";

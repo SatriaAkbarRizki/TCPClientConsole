@@ -1,0 +1,5 @@
+D:\Document\Kampus\Pemrograman Jaringan\Program TCP\Console\TCPClientConsole\bin\Release\net10.0-windows\win-x64\publish\TCPClientConsole.exe
+D:\Document\Kampus\Pemrograman Jaringan\Program TCP\Console\TCPClientConsole\bin\Release\net10.0-windows\win-x64\publish\TCPClientConsole.dll
+D:\Document\Kampus\Pemrograman Jaringan\Program TCP\Console\TCPClientConsole\bin\Release\net10.0-windows\win-x64\publish\TCPClientConsole.deps.json
+D:\Document\Kampus\Pemrograman Jaringan\Program TCP\Console\TCPClientConsole\bin\Release\net10.0-windows\win-x64\publish\TCPClientConsole.runtimeconfig.json
+D:\Document\Kampus\Pemrograman Jaringan\Program TCP\Console\TCPClientConsole\bin\Release\net10.0-windows\win-x64\publish\TCPClientConsole.pdb

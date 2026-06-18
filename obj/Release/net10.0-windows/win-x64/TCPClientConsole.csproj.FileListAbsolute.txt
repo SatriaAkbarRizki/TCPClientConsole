@@ -1,0 +1,15 @@
+D:\Document\Kampus\Pemrograman Jaringan\Program TCP\Console\TCPClientConsole\bin\Release\net10.0-windows\win-x64\TCPClientConsole.exe
+D:\Document\Kampus\Pemrograman Jaringan\Program TCP\Console\TCPClientConsole\bin\Release\net10.0-windows\win-x64\TCPClientConsole.deps.json
+D:\Document\Kampus\Pemrograman Jaringan\Program TCP\Console\TCPClientConsole\bin\Release\net10.0-windows\win-x64\TCPClientConsole.runtimeconfig.json
+D:\Document\Kampus\Pemrograman Jaringan\Program TCP\Console\TCPClientConsole\bin\Release\net10.0-windows\win-x64\TCPClientConsole.dll
+D:\Document\Kampus\Pemrograman Jaringan\Program TCP\Console\TCPClientConsole\bin\Release\net10.0-windows\win-x64\TCPClientConsole.pdb
+D:\Document\Kampus\Pemrograman Jaringan\Program TCP\Console\TCPClientConsole\obj\Release\net10.0-windows\win-x64\TCPClientConsole.GeneratedMSBuildEditorConfig.editorconfig
+D:\Document\Kampus\Pemrograman Jaringan\Program TCP\Console\TCPClientConsole\obj\Release\net10.0-windows\win-x64\TCPClientConsole.AssemblyInfoInputs.cache
+D:\Document\Kampus\Pemrograman Jaringan\Program TCP\Console\TCPClientConsole\obj\Release\net10.0-windows\win-x64\TCPClientConsole.AssemblyInfo.cs
+D:\Document\Kampus\Pemrograman Jaringan\Program TCP\Console\TCPClientConsole\obj\Release\net10.0-windows\win-x64\TCPClientConsole.csproj.CoreCompileInputs.cache
+D:\Document\Kampus\Pemrograman Jaringan\Program TCP\Console\TCPClientConsole\obj\Release\net10.0-windows\win-x64\TCPClientConsole.sourcelink.json
+D:\Document\Kampus\Pemrograman Jaringan\Program TCP\Console\TCPClientConsole\obj\Release\net10.0-windows\win-x64\TCPClientConsole.dll
+D:\Document\Kampus\Pemrograman Jaringan\Program TCP\Console\TCPClientConsole\obj\Release\net10.0-windows\win-x64\refint\TCPClientConsole.dll
+D:\Document\Kampus\Pemrograman Jaringan\Program TCP\Console\TCPClientConsole\obj\Release\net10.0-windows\win-x64\TCPClientConsole.pdb
+D:\Document\Kampus\Pemrograman Jaringan\Program TCP\Console\TCPClientConsole\obj\Release\net10.0-windows\win-x64\TCPClientConsole.genruntimeconfig.cache
+D:\Document\Kampus\Pemrograman Jaringan\Program TCP\Console\TCPClientConsole\obj\Release\net10.0-windows\win-x64\ref\TCPClientConsole.dll
